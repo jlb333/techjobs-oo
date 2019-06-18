@@ -23,25 +23,18 @@ public class JobForm {
     private int employerId;
 
     /*
-        TODO #3 - Included other fields needed to create a job,
+        TODO #3 - Include other fields needed to create a job,
         with correct validation attributes and display names.
         Don't forget to add getters and setters
      */
 
-    @NotNull
-    @Size(min=1, message = "Employer may not be empty")
+
     private String employer;
-
     @NotNull
-    @Size(min=1, message = "Location may not be empty")
     private String location;
-
     @NotNull
-    @Size(min=1, message = "Skill may not be empty")
     private String coreCompetency;
-
     @NotNull
-    @Size(min=1, message = "Position Type may not be empty")
     private String positionType;
 
 

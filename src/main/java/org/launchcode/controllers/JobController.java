@@ -6,11 +6,13 @@ import org.launchcode.models.data.JobData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+
 
 /**
  * Created by LaunchCode
@@ -39,13 +41,22 @@ public class JobController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @Valid JobForm jobForm, Errors errors) {
+    public String add(Model model, @ModelAttribute @Valid JobForm JobForm, Errors errors, Job newJob, @RequestParam int employerId) {
 
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
 
-        return "";
+        if (errors.hasErrors()) {
+            return "new-job";
+        }
+
+        newJob.setEmployer(jobData.getEmployers().findById(employerId));
+        jobData.add(newJob);
+
+        model.addAttribute("job", newJob);
+        return "redirect:?id=" + newJob.getId();
+
 
     }
 }
